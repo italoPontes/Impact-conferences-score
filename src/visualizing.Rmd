@@ -1,0 +1,13 @@
+
+```{r}
+library(ggplot2)
+
+qualis_filename <- "../data/classificacoes_publicadas_todas_as_areas_avaliacao1522078273541.csv"
+qualis_data <- read.csv2(file=qualis_filename, sep=',')
+
+ggplot(data.frame(qualis_data$Estrato), aes(x=qualis_data$Estrato)) +
+  labs(title = "Journals quality histogram - Brazilian evaluation",
+       x = "Journal category", y = "Quantity") + 
+  geom_bar() + theme_light()
+```
+
