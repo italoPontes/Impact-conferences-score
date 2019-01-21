@@ -2,7 +2,7 @@
 ```{r}
 library(ggplot2)
 
-qualis_filename <- "../data/classificacoes_publicadas_todas_as_areas_avaliacao1522078273541.csv"
+qualis_filename <- "../data/Brazil_CAPES_evaluations.csv"
 qualis_data <- read.csv2(file=qualis_filename, sep=',')
 
 ggplot(data.frame(qualis_data$Estrato), aes(x=qualis_data$Estrato)) +
@@ -11,3 +11,5 @@ ggplot(data.frame(qualis_data$Estrato), aes(x=qualis_data$Estrato)) +
   geom_bar() + theme_light()
 ```
 
+
+pegar o evento A1 com menor fator de impacto e comparar com o fator de impacto de um A2/B1/etc
