@@ -1,5 +1,7 @@
 library(ggplot2)
 library(ggExtra)
+library(plotly)
+library(plyr)
 
 qualis_filename <- "../data/Brazil_CAPES_evaluations.csv"
 qualis_data <- read.csv2(file=qualis_filename, sep=',')
@@ -21,6 +23,20 @@ inter_data$H.index <- as.numeric(inter_data$H.index)
 data <- merge(x=qualis_data, y=inter_data, by='Issn') # It was retrieved only 153 journals!
 data$BR_score <- as.integer(data$BR_score)
 data$Total.Refs. <- as.integer(data$Total.Refs.)
+
+# ~~~
+
+data_to_show <- count(qualis_data$BR_score)
+data_to_show$type <- 'Original'
+aux <- count(data$BR_score)
+aux$type <- 'Post-Filtered'
+data_to_show <- rbind(data_to_show, aux)
+ggplotly(ggplot(data_to_show, aes(x=as.factor(x), y=freq, fill=type))+
+           geom_bar(stat = "identity", position=position_dodge2(), alpha=.9) +
+           xlab("Level") + ylab("Quantity") +
+           ggtitle("Journals score distribuition") +
+           scale_fill_discrete(name = "Category") +
+           theme_light())
 
 # ~~~
 
